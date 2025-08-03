@@ -14,7 +14,7 @@ require('dotenv').config();
 
 // Middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:5173", // your React frontend
+  origin: "https://linkboard-1.onrender.com", // your React frontend
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true               // allow cookies/sessions
 }));
