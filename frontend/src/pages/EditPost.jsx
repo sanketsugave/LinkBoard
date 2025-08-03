@@ -14,7 +14,7 @@ const EditPost = () => {
   // Fetch old post data
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/post/${id}`, { withCredentials: true })
+      .get(`${import.meta.env.VITE_API_URL}/api/post/${id}`, { withCredentials: true })
       .then((res) => {
         setFormData({
           title: res.data.title || "",
@@ -37,7 +37,7 @@ const EditPost = () => {
 
     try {
       await axios.put(
-        `http://localhost:3000/api/post/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/post/${id}`,
         { ...formData },
         { withCredentials: true }
       );

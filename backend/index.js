@@ -8,32 +8,34 @@ const Post = require('./models/Post'); // Import Post model
 
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 require('dotenv').config();
 
 // Middleware
 app.use(cors({
   origin: process.env.FRONTEND_URL || "http://localhost:5173", // your React frontend
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true               // allow cookies/sessions
 }));
 
 app.use(express.json()); // To read JSON data
 
 app.use(session({
-    secret: 'thisshouldbeabettersecret',  // change in production
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URI || 'mongodb://localhost:27017/linkboard',
-        touchAfter: 24 * 3600 // session only updates once a day
-    }),
-    cookie: {
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24  // 1 day
-    }
+  secret: 'thisshouldbeabettersecret',
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO_URI,
+    touchAfter: 24 * 3600
+  }),
+  cookie: {
+    httpOnly: true,
+    secure: true,                 // ✅ Must be true for HTTPS (Vercel + Render)
+    sameSite: 'None',             // ✅ Allow cross-site cookies
+    maxAge: 1000 * 60 * 60 * 24   // 1 day
+  }
 }));
-
 
 
 connectDB(); // Connect to MongoDB

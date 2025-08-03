@@ -16,7 +16,7 @@ function Write() {
   // 🧠 Fetch posts written by user
   useEffect(() => {
     axios
-      .get('http://localhost:3000/api/myposts', { withCredentials: true })
+      .get(`${import.meta.env.VITE_API_URL}/api/myposts`, { withCredentials: true })
       .then((res) => setMyPosts(res.data.posts))
       .catch((err) => console.error('Failed to fetch posts:', err));
   }, []);
@@ -32,7 +32,7 @@ function Write() {
 
     try {
       const res = await axios.post(
-        'http://localhost:3000/api/post',
+        `${import.meta.env.VITE_API_URL}/api/post`,
         { title, content },
         { withCredentials: true }
       );

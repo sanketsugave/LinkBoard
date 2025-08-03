@@ -10,7 +10,7 @@ export function UserProvider({ children }) {
 
   // 🔍 Check session from backend
   useEffect(() => {
-    axios.get("http://localhost:3000/api/current-user", {
+    axios.get(`${import.meta.env.VITE_API_URL}/api/current-user`, {
       withCredentials: true
     })
     .then(res => {

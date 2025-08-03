@@ -14,7 +14,7 @@ const PostView = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/api/post/${id}`, {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/post/${id}`, {
           withCredentials: true,
         });
         setPost(res.data);
@@ -30,7 +30,7 @@ const PostView = () => {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
 
     try {
-      await axios.delete(`http://localhost:3000/api/post/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/post/${id}`, {
         withCredentials: true,
       });
 

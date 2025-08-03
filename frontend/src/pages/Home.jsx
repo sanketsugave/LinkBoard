@@ -8,10 +8,12 @@ const Home = () => {
   const { currentUser } = useContext(UserContext);
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
+  console.log("API:", import.meta.env.VITE_API_URL);
+
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/posts", { withCredentials: true })
+      .get(`${import.meta.env.VITE_API_URL}/api/posts`, { withCredentials: true })
       .then((res) => setPosts(res.data.posts))
       .catch((err) => console.error("Fetch error:", err));
   }, []);
@@ -63,7 +65,7 @@ const Home = () => {
                   onClick={(e) => {
                     e.stopPropagation();
                     axios
-                      .delete(`http://localhost:3000/api/post/${post._id}`, {
+                      .delete(`${import.meta.env.VITE_API_URL}/api/post/${post._id}`, {
                         withCredentials: true,
                       })
                       .then(() =>

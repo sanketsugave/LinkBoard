@@ -18,7 +18,7 @@ const EditProfile = () => {
 
     try {
       const res = await axios.put(
-        "http://localhost:3000/api/profile",
+        `${import.meta.env.VITE_API_URL}/api/profile`,
         { name, bio, dob },
         { withCredentials: true }
       );

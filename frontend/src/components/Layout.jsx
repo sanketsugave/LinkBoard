@@ -9,7 +9,7 @@ function Layout({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/current-user', { withCredentials: true })
+    axios.get(`${import.meta.env.VITE_API_URL}/api/current-user`, { withCredentials: true })
       .then((res) => {
         setCurrentUser(res.data.user); // either user or null
       })
@@ -19,7 +19,7 @@ function Layout({ children }) {
   }, []);
 
   const handleLogout = async () => {
-    await axios.post("http://localhost:3000/api/logout", {}, { withCredentials: true });
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/logout`, {}, { withCredentials: true });
     setCurrentUser(null);
     window.location.href = "/login"; // or use useNavigate
   };

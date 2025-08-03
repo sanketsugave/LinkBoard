@@ -11,10 +11,24 @@ const MyPostList = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/myposts", { withCredentials: true })
+      .get(`${import.meta.env.VITE_API_URL}/api/myposts`, { withCredentials: true })
       .then((res) => setMyPosts(res.data.posts))
       .catch((err) => console.error("Failed to fetch posts:", err));
   }, []);
+
+  const handleDelete = async (e, postId) => {
+  e.stopPropagation();
+  try {
+    await axios.delete(`${import.meta.env.VITE_API_URL}/api/post/${postId}`, {
+      withCredentials: true,
+    });
+    // Remove post from state
+    setMyPosts((prev) => prev.filter((post) => post._id !== postId));
+  } catch (err) {
+    console.error("Delete failed:", err);
+  }
+};
+
 
   return (
   <div className="mt-5">
