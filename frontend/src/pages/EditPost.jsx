@@ -54,34 +54,60 @@ const EditPost = () => {
   return (
     <Layout>
       <div className="container mt-5">
-        <h4>Edit Post</h4>
+  <div className="row justify-content-center">
+    <div className="col-md-8">
+
+      <div className="card shadow-lg rounded-4 p-4 bg-light">
+        <div className="d-flex align-items-center mb-4">
+          <i className="bi bi-pencil-square fs-3 me-2 text-primary"></i>
+          <h4 className="mb-0">Edit Your Post</h4>
+        </div>
+
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label>Title</label>
+            <label htmlFor="title" className="form-label fw-semibold">
+              📝 Title
+            </label>
             <input
-              className="form-control"
+              type="text"
+              id="title"
               name="title"
+              className="form-control"
               value={formData.title}
               onChange={handleChange}
               placeholder="Enter post title"
+              required
             />
           </div>
+
           <div className="mb-3">
-            <label>Content</label>
+            <label htmlFor="content" className="form-label fw-semibold">
+              ✍️ Content
+            </label>
             <textarea
-              className="form-control"
+              id="content"
               name="content"
+              className="form-control"
               rows={6}
               value={formData.content}
               onChange={handleChange}
               placeholder="Write your content..."
+              required
             ></textarea>
           </div>
-          <button className="btn btn-primary" type="submit">
-            Update Post
-          </button>
+
+          <div className="text-end">
+            <button type="submit" className="btn btn-success px-4">
+              <i className="bi bi-check2-circle me-1"></i>Update Post
+            </button>
+          </div>
         </form>
       </div>
+
+    </div>
+  </div>
+</div>
+
     </Layout>
   );
 };

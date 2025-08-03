@@ -1,67 +1,3 @@
-// // src/pages/PostView.jsx or wherever you're storing components/pages
-
-// import React, { useContext, useEffect, useState } from "react";
-// import { useParams } from "react-router-dom"; // if using react-router
-// import { UserContext } from "../context/UserContext"; // adjust path as needed
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-
-// const PostView = () => {
-//   const { id } = useParams(); // assuming route: /post/:id
-//   const { currentUser } = useContext(UserContext);
-//   const [post, setPost] = useState(null);
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     const fetchPost = async () => {
-//       try {
-//         const res = await axios.get(`/api/post/${id}`);
-//         setPost(res.data);
-//       } catch (err) {
-//         console.log(err);
-//       }
-//     };
-//     fetchPost();
-//   }, [id]);
-
-//   const handleDelete = async () => {
-//     try {
-//       await axios.delete(`/api/post/${id}`, {
-//         headers: {
-//           Authorization: `Bearer ${currentUser?.token}`,
-//         },
-//       });
-//       navigate("/posts");
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-
-//   if (!post) return <div>Loading post...</div>;
-
-//   return (
-//     <div className="post-view">
-//       <h1>{post.title}</h1>
-//       <p>{post.content}</p>
-//       <p>
-//         <small>Author: {post.authorName}</small>
-//       </p>
-
-//       {currentUser?.id === post.authorId && (
-//         <div style={{ marginTop: "20px" }}>
-//           <button onClick={() => navigate(`/edit/${post._id}`)}>Edit</button>
-//           <button onClick={handleDelete} style={{ marginLeft: "10px", color: "red" }}>
-//             Delete
-//           </button>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default PostView;
-
-
 import React, { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
@@ -111,46 +47,51 @@ const PostView = () => {
 
   return (
     <Layout>
-      <div className="container mt-5">
-        <div className="card shadow-sm p-4">
-          <h4 className="mb-3">{post.title || "Untitled Post"}</h4>
-          <p className="fs-5">{post.content}</p>
 
-          <p className="text-muted mt-3 mb-1">
-            <i className="bi bi-person-circle me-2"></i>
-            Author: <strong>{post.author?.name || "Unknown"}</strong>
-          </p>
-          <p className="text-muted">
-            <i className="bi bi-clock me-2"></i>
-            Created:{" "}
-            {new Date(post.createdAt).toLocaleString("en-IN", {
-              day: "numeric",
-              month: "short",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </p>
+      <div className="container my-5 d-flex justify-content-center">
+  <div className="card shadow-lg p-4 w-100" style={{ maxWidth: "720px" }}>
+    <div className="mb-3">
+      <h2 className="mb-1">{post.title || "Untitled Post"}</h2>
+      <hr />
+      <p className="fs-5 text-secondary">{post.content}</p>
+    </div>
 
-          {/* ✅ Show Edit/Delete buttons only if the post belongs to current user */}
-          {String(currentUser?._id) === String(post.author?._id) && (
-            <div className="mt-4 d-flex gap-3">
-              <button
-                className="btn btn-outline-primary"
-                onClick={() => navigate(`/edit/${post._id}`)}
-              >
-                <i className="bi bi-pencil-square me-1"></i>✏️  
-              </button>
-              <button
-                className="btn btn-outline-danger"
-                onClick={handleDelete}
-              >
-                <i className="bi bi-trash me-1"></i>🗑️ 
-              </button>
-            </div>
-          )}
-        </div>
+    <div className="mt-4">
+      <p className="mb-1 text-muted">
+        <i className="bi bi-person-circle me-2"></i>
+        <strong>{post.author?.name || "Unknown"}</strong>
+      </p>
+      <p className="text-muted">
+        <i className="bi bi-clock me-2"></i>
+        {new Date(post.createdAt).toLocaleString("en-IN", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        })}
+      </p>
+    </div>
+
+    {String(currentUser?._id) === String(post.author?._id) && (
+      <div className="mt-4 d-flex gap-2 justify-content-end">
+        <button
+          className="btn btn-sm btn-outline-primary"
+          onClick={() => navigate(`/edit/${post._id}`)}
+        >
+          ✏️ Edit
+        </button>
+        <button
+          className="btn btn-sm btn-outline-danger"
+          onClick={handleDelete}
+        >
+          🗑️ Delete
+        </button>
       </div>
+    )}
+  </div>
+</div>
+
     </Layout>
   );
 };

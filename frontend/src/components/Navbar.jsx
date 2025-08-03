@@ -24,37 +24,45 @@ const NavBar = () => {
     window.location.href = "/login"; // or use useNavigate
   };
   return (
-<Navbar bg="dark" variant="dark" expand="lg">
-  <Container>
-    <Navbar.Brand as={Link} to="/">LinkBoard</Navbar.Brand>
-    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-    <Navbar.Collapse id="basic-navbar-nav">
 
-      {/* LEFT SIDE LINKS */}
+<Navbar bg="dark" variant="dark" expand="lg" sticky="top" className="shadow-sm">
+  <Container>
+    {/* Logo / Brand */}
+    <Navbar.Brand as={Link} to="/" className="d-flex align-items-center fw-bold">
+      <i className="bi bi-link-45deg me-2 fs-4"></i>LinkBoard
+    </Navbar.Brand>
+
+    <Navbar.Toggle aria-controls="navbar-nav" />
+    <Navbar.Collapse id="navbar-nav">
+
+      {/* LEFT NAV */}
       <Nav className="me-auto">
-        <Nav.Link as={Link} to="/" className="active">Home</Nav.Link>
+        <Nav.Link as={Link} to="/" className="px-3">Home</Nav.Link>
         {currentUser && (
-          <Nav.Link as={Link} to="/Posts">Posts</Nav.Link> // optional
-        )}
-        {currentUser && (
-          <Nav.Link as={Link} to="/write">Write Post</Nav.Link> // optional
-        )}
-        {currentUser && (
-          <Nav.Link as={Link} to="/profile">Profile</Nav.Link> // optional
+          <>
+            <Nav.Link as={Link} to="/write" className="px-3">Write</Nav.Link>
+            <Nav.Link as={Link} to="/posts" className="px-3">My Posts</Nav.Link>
+            <Nav.Link as={Link} to="/profile" className="px-3">Profile</Nav.Link>
+          </>
         )}
       </Nav>
 
-      {/* RIGHT SIDE LINKS */}
-      <Nav className="ms-auto">
+      {/* RIGHT NAV */}
+      <Nav className="ms-auto align-items-center">
         {!currentUser ? (
           <>
-            <Nav.Link as={Link} to="/login">Login</Nav.Link>
-            <Nav.Link as={Link} to="/register">Register</Nav.Link>
+            <Nav.Link as={Link} to="/login" className="px-3">Login</Nav.Link>
+            <Nav.Link as={Link} to="/register" className="px-3">Register</Nav.Link>
           </>
         ) : (
           <>
-            <Nav.Link disabled>Hi, {currentUser.name}</Nav.Link>
-            <Nav.Link as="button" onClick={handleLogout}>Logout</Nav.Link>
+            <span className="navbar-text text-light me-3">👋 {currentUser.name}</span>
+            <button
+              onClick={handleLogout}
+              className="btn btn-sm btn-outline-light"
+            >
+              Logout
+            </button>
           </>
         )}
       </Nav>
@@ -62,6 +70,7 @@ const NavBar = () => {
     </Navbar.Collapse>
   </Container>
 </Navbar>
+
 
 );
 };

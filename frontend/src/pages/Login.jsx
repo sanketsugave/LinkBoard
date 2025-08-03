@@ -44,23 +44,58 @@ function Login() {
 
   return (
     <Layout>
-      <div className='container my-5 d-flex justify-content-center'>
-        <div className="card shadow p-4" style={{ maxWidth: '400px', width: '100%' }}>
-        <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label>Email</label>
-          <input type="email" name="email" className="form-control" onChange={handleChange} required />
-        </div>
-        <div className="mb-3">
-          <label>Password</label>
-          <input type="password" name="password" className="form-control" onChange={handleChange} required />
-        </div>
-        <button className="btn btn-success" type="submit">Login</button>
-      </form>
-      <p className="mt-3">{message}</p>
+
+      <div className="container my-5 d-flex justify-content-center align-items-center">
+  <div className="card shadow-lg p-4" style={{ maxWidth: '420px', width: '100%' }}>
+    <div className="text-center mb-4">
+      <i className="bi bi-person-circle" style={{ fontSize: "3rem", color: "#0d6efd" }}></i>
+      <h3 className="mt-2">Welcome Back</h3>
+      <p className="text-muted">Login to continue</p>
+    </div>
+
+    <form onSubmit={handleSubmit}>
+      <div className="mb-3">
+        <label htmlFor="email" className="form-label">📧 Email address</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          className="form-control"
+          placeholder="Enter your email"
+          onChange={handleChange}
+          required
+        />
       </div>
+
+      <div className="mb-3">
+        <label htmlFor="password" className="form-label">🔒 Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          className="form-control"
+          placeholder="Enter your password"
+          onChange={handleChange}
+          required
+        />
       </div>
+
+      <div className="d-grid mt-4">
+        <button type="submit" className="btn btn-primary">Login</button>
+      </div>
+    </form>
+
+    {message && <p className="text-danger mt-3 text-center">{message}</p>}
+
+    <hr className="my-4" />
+
+    <p className="text-center mb-0">
+      Don't have an account?{" "}
+      <a href="/register" className="text-decoration-none">Register</a>
+    </p>
+  </div>
+</div>
+
     </Layout>
   );
 }

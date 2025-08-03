@@ -17,59 +17,53 @@ const MyPostList = () => {
   }, []);
 
   return (
-    <div className="mt-5">
-      <h4>Your Posts</h4>
+  <div className="mt-5">
+      <h4 className="mb-4 text-center">
+        <i className="bi bi-journal-text me-2"></i>Your Posts
+      </h4>
 
       {myPosts.length === 0 ? (
-        <p>No posts yet.</p>
+        <p className="text-center text-muted">No posts yet.</p>
       ) : (
         myPosts.map((post) => (
           <div
             key={post._id}
-            className="card p-3 mb-3 shadow-sm mx-auto"
-            style={{ maxWidth: "600px", cursor: "pointer" }}
+            className="card shadow-sm p-4 mb-4 border-0 rounded-3 mx-auto"
+            style={{
+              maxWidth: "650px",
+              cursor: "pointer",
+              background: "#fdfdfd",
+            }}
             onClick={() => navigate(`/post/${post._id}`)}
->
-  <h5 className="mb-1">{post.title || "Untitled Post"}</h5>
-  <p className="mb-2">{post.content}</p>
+          >
+            <h5 className="fw-bold">{post.title || "Untitled Post"}</h5>
+            <p className="text-secondary mb-2">{post.content}</p>
 
-  <small className="text-muted">
-    👤 {post.author?.name || "Unknown"} • 🕒{" "}
-    {new Date(post.createdAt).toLocaleString()}
-  </small>
+            <small className="text-muted d-block mb-2">
+              👤 {post.author?.name || "Unknown"} • 🕒{" "}
+              {new Date(post.createdAt).toLocaleString()}
+            </small>
 
-  {currentUser?._id === post.author?._id && (
-    <div className="mt-2 d-flex gap-2">
-      <button
-        className="btn btn-outline-primary btn-sm"
-        onClick={(e) => {
-          e.stopPropagation();
-          navigate(`/edit/${post._id}`);
-        }}
-      >
-        🖊️ Edit
-      </button>
-      <button
-        className="btn btn-outline-danger btn-sm"
-        onClick={(e) => {
-          e.stopPropagation();
-          axios
-            .delete(`http://localhost:3000/api/post/${post._id}`, {
-              withCredentials: true,
-            })
-            .then(() => {
-              // Optional: remove deleted post from state if you have state like setPosts
-              setPosts((prev) => prev.filter((p) => p._id !== post._id));
-            })
-            .catch((err) => console.error("Delete error:", err));
-        }}
-      >
-        🗑️ Delete
-      </button>
-    </div>
-  )}
-</div>
-
+            {currentUser?._id === post.author?._id && (
+              <div className="mt-3 d-flex justify-content-end gap-2">
+                <button
+                  className="btn btn-outline-primary btn-sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/edit/${post._id}`);
+                  }}
+                >
+                  <i className="bi bi-pencil me-1"></i> Edit
+                </button>
+                <button
+                  className="btn btn-outline-danger btn-sm"
+                  onClick={(e) => handleDelete(e, post._id)}
+                >
+                  <i className="bi bi-trash me-1"></i> Delete
+                </button>
+              </div>
+            )}
+          </div>
         ))
       )}
     </div>
