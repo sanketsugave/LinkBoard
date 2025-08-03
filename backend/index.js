@@ -6,12 +6,15 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo'); // For session storage in MongoDB
 const Post = require('./models/Post'); // Import Post model
 
+
 const app = express();
 const PORT = 3000;
 
+require('dotenv').config();
+
 // Middleware
 app.use(cors({
-  origin: "http://localhost:5173", // your React frontend
+  origin: process.env.FRONTEND_URL || "http://localhost:5173", // your React frontend
   credentials: true               // allow cookies/sessions
 }));
 
@@ -22,7 +25,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-        mongoUrl: 'mongodb://localhost:27017/linkboard',
+        mongoUrl: process.env.MONGO_URI || 'mongodb://localhost:27017/linkboard',
         touchAfter: 24 * 3600 // session only updates once a day
     }),
     cookie: {
