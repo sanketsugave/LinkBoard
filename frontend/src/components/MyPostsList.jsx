@@ -54,9 +54,19 @@ const MyPostList = () => {
             <p className="text-secondary mb-2">{post.content}</p>
 
             <small className="text-muted d-block mb-2">
-              👤 {post.author?.name || "Unknown"} • 🕒{" "}
-              {new Date(post.createdAt).toLocaleString()}
-            </small>
+  👤 <span
+        className="text-primary"
+        style={{ cursor: "pointer", textDecoration: "underline" }}
+        onClick={(e) => {
+          e.stopPropagation();
+          navigate(`/user/${post.author._id}`);
+        }}
+      >
+        {post.author?.name || "Unknown"}
+      </span> • 🕒{" "}
+  {new Date(post.createdAt).toLocaleString()}
+</small>
+
 
             {currentUser?._id === post.author?._id && (
               <div className="mt-3 d-flex justify-content-end gap-2">

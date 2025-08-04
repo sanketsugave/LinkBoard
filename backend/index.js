@@ -326,6 +326,17 @@ app.put('/api/profile', async (req, res) => {
   }
 });
 
+app.get('/api/user/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select("name bio email dob");
+    const posts = await Post.find({ author: user._id }).sort({ createdAt: -1 });
+
+    res.json({ user, posts });
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

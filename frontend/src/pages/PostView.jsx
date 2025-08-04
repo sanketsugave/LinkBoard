@@ -58,9 +58,18 @@ const PostView = () => {
 
     <div className="mt-4">
       <p className="mb-1 text-muted">
-        <i className="bi bi-person-circle me-2"></i>
-        <strong>{post.author?.name || "Unknown"}</strong>
-      </p>
+    <i className="bi bi-person-circle me-2"></i>
+    <strong
+      className="text-primary"
+      style={{ cursor: "pointer", textDecoration: "underline" }}
+      onClick={(e) => {
+        e.stopPropagation();
+        navigate(`/user/${post.author._id}`);
+      }}
+    >
+      {post.author?.name || "Unknown"}
+    </strong>
+  </p>
       <p className="text-muted">
         <i className="bi bi-clock me-2"></i>
         {new Date(post.createdAt).toLocaleString("en-IN", {

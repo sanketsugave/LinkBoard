@@ -10,6 +10,8 @@ import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import { Navigate } from 'react-router-dom';
+import UserProfile from './pages/UserProfile';  
 // import NotFound from './pages/NotFound'; // Optional 404 page
 
 const routes = [
@@ -82,12 +84,16 @@ const routes = [
     element: <Login />,
 },
 {
+  path: '/user/:id',
+  element: <UserProfile />,
+},
+{
     path: '/register',
     element: <Register />,
 },
 {
     path: '*',
-    element:<h1>404 Not Found</h1>,
+    element:<Navigate to="/"/>,
 }
 ];
 
