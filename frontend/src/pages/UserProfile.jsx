@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Layout from "../components/Layout";
 
 function UserProfile() {
   const { id } = useParams();
@@ -19,6 +20,7 @@ function UserProfile() {
   if (!userInfo) return <p className="text-center">Loading user...</p>;
 
   return (
+    <Layout>
     <div className="container mt-5">
       <h3 className="mb-3 text-center">{userInfo.name}'s Profile</h3>
       <p className="text-muted text-center">{userInfo.bio}</p>
@@ -42,6 +44,7 @@ function UserProfile() {
         ))
       )}
     </div>
+    </Layout>
   );
 }
 
