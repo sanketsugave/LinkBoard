@@ -12,6 +12,8 @@ const PORT = process.env.PORT || 3000;
 
 require('dotenv').config();
 
+app.set('trust proxy', 1);
+
 // Middleware
 app.use(cors({
   origin: "https://linkboard-1.onrender.com", // your React frontend
@@ -20,8 +22,12 @@ app.use(cors({
 }));
 
 app.use(express.json()); // To read JSON data
+app.use(express.urlencoded({ extended: true }));
+
+
 
 app.use(session({
+  name: 'sid',
   secret: 'thisshouldbeabettersecret',
   resave: false,
   saveUninitialized: false,
@@ -52,6 +58,7 @@ app.post('/api/register', async (req, res) => {
 
     // create session
     req.session.userId = user._id;
+    
 
     res.status(201).json({ message: '✅ Registration successful', user: { name: user.name, email: user.email } });
   } catch (err) {
