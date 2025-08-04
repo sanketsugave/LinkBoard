@@ -58,7 +58,7 @@ const MyPostList = () => {
               {new Date(post.createdAt).toLocaleString()}
             </small>
 
-            {currentUser?._id === post.author?._id && (
+            {/* {currentUser?._id === post.author?._id && (
               <div className="mt-3 d-flex justify-content-end gap-2">
                 <button
                   className="btn btn-outline-primary btn-sm"
@@ -76,7 +76,28 @@ const MyPostList = () => {
                   <i className="bi bi-trash me-1"></i> Delete
                 </button>
               </div>
-            )}
+            )} */}
+            {currentUser?._id && post.author?._id &&
+  String(currentUser._id) === String(post.author._id) && (
+    <div className="mt-3 d-flex justify-content-end gap-2">
+      <button
+        className="btn btn-outline-primary btn-sm"
+        onClick={(e) => {
+          e.stopPropagation();
+          navigate(`/edit/${post._id}`);
+        }}
+      >
+        <i className="bi bi-pencil me-1"></i> Edit
+      </button>
+      <button
+        className="btn btn-outline-danger btn-sm"
+        onClick={(e) => handleDelete(e, post._id)}
+      >
+        <i className="bi bi-trash me-1"></i> Delete
+      </button>
+    </div>
+)}
+
           </div>
         ))
       )}

@@ -128,7 +128,7 @@ app.get('/api/myposts', async (req, res) => {
     }
 
     const posts = await Post.find({ author: req.session.userId })
-    .populate('author', 'name email')
+    .populate('author', 'name email _id')
     .sort({ createdAt: -1 });
 
     res.json({ posts });
